@@ -31,7 +31,13 @@ TEST    := test_vectors$(EXE)
 
 .PHONY: all test debug clean
 
-all: $(JENC)
+all: check-openssh $(JENC)
+
+# Guard: vendored openssh-portable must have includes.h renamed to includes.h_
+# so that src/openssh_shim/includes.h is used. A real includes.h would shadow it.
+check-openssh:
+	@test -f src/openssh-portable/includes.h_ || { echo "ERROR: src/openssh-portable/includes.h_ missing; openssh-portable checkout not set up (see README)"; exit 1; }
+	@test ! -e src/openssh-portable/includes.h || { echo "ERROR: src/openssh-portable/includes.h exists; rename it to includes.h_ (see README)"; exit 1; }
 
 libjenc.a: $(LIB_OBJ)
 	$(AR) rcs $@ $^

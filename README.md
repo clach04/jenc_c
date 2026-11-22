@@ -37,12 +37,14 @@ cd src
 # Obtain AES/rijndael and sha2
 git clone https://github.com/clach04/openssh-portable.git
 cd openssh-portable
-mv includes.h includes.h_
-ren includes.h includes.h_
-# delete/rm
-cd ..
-cd ..
+mv includes.h includes.h_   # Windows: ren includes.h includes.h_
+cd ../..
 ```
+
+The rename is required: the vendored sources include "includes.h", and the
+build must pick up `src/openssh_shim/includes.h` instead. `make` and
+`build.bat` stop with an error if `includes.h` is present or `includes.h_`
+is missing.
 
 
 ```sh

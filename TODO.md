@@ -17,7 +17,12 @@ Follow-ups. Tracked here per user request (not the codgent issue tracker).
 - [ ] openssh-portable checkout: `includes.h` renamed to `includes.h_` (README
       build step) and `src/openssh_shim/includes.h` used instead. Not vendored
       here (gitignored), so edits to it are out of scope. Revisit if the shim
-      or the rename causes build drift.
+      or the rename causes build drift. Guarded: make/build.bat fail fast if
+      includes.h is present or includes.h_ is missing.
+- [ ] Remove the includes.h rename: copy the few vendored files actually built
+      (rijndael.c, openbsd-compat/sha2.c, openbsd-compat/timingsafe_bcmp.c)
+      into jenc_c with their licence notices, dropping the openssh checkout
+      dependency. Trade-off: manual sync with upstream; needs a licence step.
 - [ ] HMAC/PBKDF2 on Windows: use bcrypt.dll (already linked via -lbcrypt).
       BCryptCreateHash with BCRYPT_ALG_HANDLE_HMAC_FLAG gives HMAC-SHA512;
       BCryptDeriveKeyPBKDF2 gives PBKDF2. Would replace hmac_sha512 and most of

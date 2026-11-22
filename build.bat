@@ -13,6 +13,10 @@ set LIBS=-lbcrypt
 if "%1"=="clean" goto :clean
 if "%1"=="debug" set OPT=-O2 -DJENC_DEBUG_SKIP_MAC
 
+rem Guard: vendored openssh-portable must have includes.h renamed to includes.h_
+if not exist src\openssh-portable\includes.h_ (echo ERROR: src\openssh-portable\includes.h_ missing; openssh-portable checkout not set up ^(see README^) & goto :fail)
+if exist src\openssh-portable\includes.h (echo ERROR: src\openssh-portable\includes.h exists; rename it to includes.h_ ^(see README^) & goto :fail)
+
 echo == vendored (warnings suppressed for upstream code)
 gcc %OPT% %CPP% -w -c -o src\openssh-portable\rijndael.o src\openssh-portable\rijndael.c || goto :fail
 gcc %OPT% %CPP% -w -c -o src\openssh-portable\openbsd-compat\sha2.o src\openssh-portable\openbsd-compat\sha2.c || goto :fail
