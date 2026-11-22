@@ -18,8 +18,13 @@ Follow-ups. Tracked here per user request (not the codgent issue tracker).
       build step) and `src/openssh_shim/includes.h` used instead. Not vendored
       here (gitignored), so edits to it are out of scope. Revisit if the shim
       or the rename causes build drift.
-- [ ] HMAC: hand-written `hmac_sha512` kept (see README). Revisit only if
-      sshbuf/digest can be built without a link-time stub.
+- [ ] HMAC/PBKDF2 on Windows: use bcrypt.dll (already linked via -lbcrypt).
+      BCryptCreateHash with BCRYPT_ALG_HANDLE_HMAC_FLAG gives HMAC-SHA512;
+      BCryptDeriveKeyPBKDF2 gives PBKDF2. Would replace hmac_sha512 and most of
+      PBKDF2 on Windows, with no vendoring. Not a big win: Linux still needs
+      its own path (OpenSSL or mbedTLS, per the crypto backend item above), so
+      the hand-written code stays for non-Windows builds unless that lands.
+      Worth pursuing. Also revisit only if sshbuf/digest builds without stubs.
 - [ ] Windows CRLF note: jenc-py checkout turns tests/data/*.md to CRLF
       (core.autocrlf). Vectors here are committed as-is; keep the
       test.v001.md copy at 41 bytes (CRLF) to match the vector.
