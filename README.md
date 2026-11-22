@@ -1,6 +1,6 @@
 # jenc_c
 
-C99 implementation of the **jenc V001** file format (the format used by
+C99 implementation of the [**jenc V001**](https://github.com/clach04/jenc-py#jenc-file-format---v001) file format (the format used by
 `jenc-py`). Provides a library and a command-line tool.
 
 Only the V001 format is supported. U001 is not.
@@ -120,4 +120,6 @@ TODO.md                 open items, including jenc-py differences
 
 ## References
 
-- jenc-py: format reference and test data.
+- [jenc-py](https://github.com/clach04/jenc-py): format reference and test data.
+- https://github.com/clach04/chi_c - library and CLI structure
+
