@@ -7,9 +7,9 @@ Only the V001 format is supported. U001 is not.
 
 ## Status
 
-- Decrypts both V001 reference vectors byte-for-byte.
-- Encrypts output that matches the reference vectors byte-for-byte.
-- Not yet reviewed for side-channel resistance (there are some home-grown; PBKDF2-HMAC-SHA512, GHASH/GCM, HMAC, RNG - which is less than ideal). See `TODO.md`.
+  * Decrypts both V001 reference vectors byte-for-byte.
+  * Encrypts output that matches the reference vectors byte-for-byte.
+  * Not yet reviewed for side-channel resistance (there are some home-grown; PBKDF2-HMAC-SHA512, GHASH/GCM, HMAC, RNG - which is less than ideal). See `TODO.md`.
 
 ## Format (V001)
 
@@ -62,13 +62,12 @@ jenc -e IN OUT [--password PASS] [-b]
 jenc -d IN OUT [--password PASS]
 ```
 
-- `-e` encrypt, `-d` decrypt.
-- `-` for `IN` or `OUT` uses stdin or stdout.
-- Password sources, in order: `--password`, then the `JENC_PASSWORD`
-  environment variable, then a no-echo prompt.
-- Encryption prompts for the password twice. `-b` skips the confirmation.
-- A failed decryption (wrong password or corrupt file) exits with status 1
-  and writes no output file.
+  * `-e` encrypt, `-d` decrypt.
+  * `-` for `IN` or `OUT` uses stdin or stdout.
+  * Password sources, in order: `--password`, then the `JENC_PASSWORD` environment variable, then a no-echo prompt.
+  * Encryption prompts for the password twice. `-b` skips the confirmation.
+  * A failed decryption (wrong password or corrupt file) exits with status 1
+    and writes no output file.
 
 Avoid `--password` on shared machines: the value can be seen in the process
 list.
@@ -111,15 +110,14 @@ TODO.md                 open items, including jenc-py differences
 
 `make test` runs the vectors and checks:
 
-- Decryption of both V001 vectors, byte-exact.
-- Re-encryption matching the vectors.
-- Wrong password is rejected.
-- Single-bit flips and truncation are rejected.
-- Bad version is rejected.
-- Round trips.
+  * Decryption of both V001 vectors, byte-exact.
+  * Re-encryption matching the vectors.
+  * Wrong password is rejected.
+  * Single-bit flips and truncation are rejected.
+  * Bad version is rejected.
+  * Round trips.
 
 ## References
 
-- [jenc-py](https://github.com/clach04/jenc-py): format reference and test data.
-- https://github.com/clach04/chi_c - library and CLI structure
-
+  * [jenc-py](https://github.com/clach04/jenc-py): format reference and test data.
+  * https://github.com/clach04/chi_c - library and CLI structure
