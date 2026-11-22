@@ -54,3 +54,7 @@ src/openssh-portable/
 
 jenc
 test_vectors
+
+setenv.bat
+setenv.sh
+
