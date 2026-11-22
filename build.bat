@@ -16,11 +16,12 @@ if "%1"=="debug" set OPT=-O2 -DJENC_DEBUG_SKIP_MAC
 echo == vendored (warnings suppressed for upstream code)
 gcc %OPT% %CPP% -w -c -o src\openssh-portable\rijndael.o src\openssh-portable\rijndael.c || goto :fail
 gcc %OPT% %CPP% -w -c -o src\openssh-portable\openbsd-compat\sha2.o src\openssh-portable\openbsd-compat\sha2.c || goto :fail
+gcc %OPT% %CPP% -w -c -o src\openssh-portable\openbsd-compat\timingsafe_bcmp.o src\openssh-portable\openbsd-compat\timingsafe_bcmp.c || goto :fail
 
 echo == libjenc
 gcc %CSTD% %OPT% %CPP% -c -o src\jenc.o src\jenc.c || goto :fail
 gcc %CSTD% %OPT% %CPP% -c -o src\jenc_crypto.o src\jenc_crypto.c || goto :fail
-ar rcs libjenc.a src\jenc.o src\jenc_crypto.o src\openssh-portable\rijndael.o src\openssh-portable\openbsd-compat\sha2.o || goto :fail
+ar rcs libjenc.a src\jenc.o src\jenc_crypto.o src\openssh-portable\rijndael.o src\openssh-portable\openbsd-compat\sha2.o src\openssh-portable\openbsd-compat\timingsafe_bcmp.o || goto :fail
 
 echo == jenc.exe
 gcc %CSTD% %OPT% %CPP% -o jenc.exe src\jenc_crypt.c libjenc.a %LIBS% || goto :fail
@@ -36,7 +37,7 @@ test_vectors.exe || goto :fail
 goto :ok
 
 :clean
-del /q src\jenc.o src\jenc_crypto.o src\openssh-portable\rijndael.o src\openssh-portable\openbsd-compat\sha2.o libjenc.a jenc.exe test_vectors.exe 2>nul
+del /q src\jenc.o src\jenc_crypto.o src\openssh-portable\rijndael.o src\openssh-portable\openbsd-compat\sha2.o src\openssh-portable\openbsd-compat\timingsafe_bcmp.o libjenc.a jenc.exe test_vectors.exe 2>nul
 echo cleaned
 goto :eof
 

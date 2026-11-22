@@ -10,6 +10,9 @@
 #include "jenc.h"
 #include "jenc_crypto.h"
 
+/* openssh-portable openbsd-compat/timingsafe_bcmp.c: 0 when equal. */
+int timingsafe_bcmp(const void *b1, const void *b2, size_t n);
+
 const char *jenc_status_str(jenc_status status)
 {
     switch (status) {
@@ -155,7 +158,8 @@ static jenc_status decrypt_core(const char *password,
         st = jenc_crypto_gcm_tag(key, nonce, JENC_NONCE_LEN, ct, ct_len,
                                  calc_tag);
         if (st != JENC_OK) goto fail;
-        if (!jenc_crypto_ct_equal(calc_tag, tag, JENC_TAG_LEN)) {
+        /* timingsafe_bcmp: returns 0 on equal, nonzero on mismatch */
+        if (timingsafe_bcmp(calc_tag, tag, JENC_TAG_LEN) != 0) {
             st = JENC_ERR_AUTH;
             goto fail;
         }

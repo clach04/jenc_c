@@ -11,6 +11,15 @@ Follow-ups. Tracked here per user request (not the codgent issue tracker).
 - [ ] jenc-py `--envvar` override option.
 - [ ] Streaming API (current: whole file in memory).
 - [ ] Larger test harness (cross-check against jenc-py output).
+- [ ] Wipe: consider replacing hand-written `jenc_crypto_wipe` with vendored
+      openbsd-compat `explicit_bzero.c`. Trade-off: it needs a `bzero` shim
+      (MinGW lacks it), so the hand-written volatile loop stays for now.
+- [ ] openssh-portable checkout: `includes.h` renamed to `includes.h_` (README
+      build step) and `src/openssh_shim/includes.h` used instead. Not vendored
+      here (gitignored), so edits to it are out of scope. Revisit if the shim
+      or the rename causes build drift.
+- [ ] HMAC: hand-written `hmac_sha512` kept (see README). Revisit only if
+      sshbuf/digest can be built without a link-time stub.
 - [ ] Windows CRLF note: jenc-py checkout turns tests/data/*.md to CRLF
       (core.autocrlf). Vectors here are committed as-is; keep the
       test.v001.md copy at 41 bytes (CRLF) to match the vector.

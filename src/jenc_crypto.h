@@ -42,10 +42,6 @@ jenc_status jenc_crypto_gcm_tag(const unsigned char key[JENC_KEY_LEN],
                                 const unsigned char *ct, size_t ct_len,
                                 unsigned char tag[JENC_TAG_LEN]);
 
-/* Constant-time comparison. Returns 1 if equal, 0 otherwise. */
-int jenc_crypto_ct_equal(const unsigned char *a, const unsigned char *b,
-                         size_t len);
-
 /* Fill buf with OS random bytes. Fails hard if the OS source is unavailable. */
 jenc_status jenc_crypto_random(unsigned char *buf, size_t len);
 

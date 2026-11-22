@@ -13,7 +13,8 @@ CSTD    := -std=c99 -Wall -Wextra -pedantic -Wno-attributes -D_POSIX_C_SOURCE=20
 CPPFLAGS := -Isrc/openssh_shim -Isrc -Isrc/openssh-portable
 
 VENDOR_SRC := src/openssh-portable/rijndael.c \
-              src/openssh-portable/openbsd-compat/sha2.c
+              src/openssh-portable/openbsd-compat/sha2.c \
+              src/openssh-portable/openbsd-compat/timingsafe_bcmp.c
 LIB_SRC    := src/jenc.c src/jenc_crypto.c
 LIB_OBJ    := $(LIB_SRC:.c=.o) $(VENDOR_SRC:.c=.o)
 
@@ -54,6 +55,9 @@ src/openssh-portable/rijndael.o: src/openssh-portable/rijndael.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) -w -c -o $@ $<
 
 src/openssh-portable/openbsd-compat/sha2.o: src/openssh-portable/openbsd-compat/sha2.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -w -c -o $@ $<
+
+src/openssh-portable/openbsd-compat/timingsafe_bcmp.o: src/openssh-portable/openbsd-compat/timingsafe_bcmp.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) -w -c -o $@ $<
 
 %.o: %.c src/jenc.h src/jenc_crypto.h

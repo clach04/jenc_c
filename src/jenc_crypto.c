@@ -299,15 +299,6 @@ jenc_status jenc_crypto_gcm_tag(const unsigned char key[JENC_KEY_LEN],
 
 /* ---------- utilities ---------- */
 
-int jenc_crypto_ct_equal(const unsigned char *a, const unsigned char *b,
-                         size_t len)
-{
-    unsigned char diff = 0;
-    size_t i;
-    for (i = 0; i < len; i++) diff |= (unsigned char)(a[i] ^ b[i]);
-    return diff == 0;
-}
-
 jenc_status jenc_crypto_random(unsigned char *buf, size_t len)
 {
     if (!buf) return JENC_ERR_ARG;

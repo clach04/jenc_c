@@ -10,6 +10,9 @@ Only the V001 format is supported. U001 is not.
   * Decrypts both V001 reference vectors byte-for-byte.
   * Encrypts output that matches the reference vectors byte-for-byte.
   * Not yet reviewed for side-channel resistance (there are some home-grown; PBKDF2-HMAC-SHA512, GHASH/GCM, HMAC, RNG - which is less than ideal). See `TODO.md`.
+      * **HMAC is hand-written, by choice.** openssh's `hmac.c` is not built: it needs `digest-libc.c`, which needs `sshbuf_ptr`/`sshbuf_len` (from `sshbuf.c`, which pulls in `misc.c`) and the MD5/SHA1 headers. Not worth the shim cost for ~40 lines.
+      * `timingsafe_bcmp` is vendored from openbsd-compat (`timingsafe_bcmp.c`).
+      * The volatile-loop wipe (`jenc_crypto_wipe`) is hand-written; vendored `explicit_bzero.c` needs `bzero`, which MinGW lacks.
 
 ## Format (V001)
 
