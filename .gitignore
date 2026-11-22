@@ -46,7 +46,7 @@
 *.dwo
 
 # Backup files
-*.~
+*~
 *.bak
 
 # TODO git submodule https://github.com/openssh/openssh-portable
