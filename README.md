@@ -41,10 +41,12 @@ mv includes.h includes.h_   # Windows: ren includes.h includes.h_
 cd ../..
 ```
 
-The rename is required: the vendored sources include "includes.h", and the
-build must pick up `src/openssh_shim/includes.h` instead. `make` and
-`build.bat` stop with an error if `includes.h` is present or `includes.h_`
-is missing.
+The rename is required. Vendored files in `src/openssh-portable/` do
+`#include "includes.h"`, and quoted includes search the including file's own
+directory before any `-I` path. A real `includes.h` there would shadow
+`src/openssh_shim/includes.h` and break the build, so `-I` order cannot fix
+it. `make` and `build.bat` stop with an error if `includes.h` is present or
+`includes.h_` is missing.
 
 
 ```sh
