@@ -34,11 +34,12 @@ Requirements: a C99 compiler (tested with GCC/MinGW) and openssh-portable.
 
 ```sh
 cd src
-# Obtain AES/rijndael and sha2
+# Obtain AES/rijndael and sha2, known to work with fa4b2a82be7df9768272cfabc2d78e4a12c2b3c0
 git clone https://github.com/clach04/openssh-portable.git
 cd openssh-portable
 mv includes.h includes.h_   # Windows: ren includes.h includes.h_
-cd ../..
+cd ..
+cd ..
 ```
 
 The rename is required. Vendored files in `src/openssh-portable/` do
